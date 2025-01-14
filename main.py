@@ -26,11 +26,14 @@ def main():
                 return
 
         screen.fill((0, 0, 0))
+
+        elapsed = clock.tick(60)
+        dt = elapsed / 1000
+
+        player.update(dt)
         player.draw(screen)
 
         display.flip()
-        elapsed = clock.tick(60)
-        dt = elapsed / 1000
 
 
 if __name__ == "__main__":
