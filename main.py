@@ -1,6 +1,5 @@
 import pygame
 from pygame import display
-from pygame.time import Clock
 
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
@@ -18,7 +17,12 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
-    player = Player(x, y)
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
+    _player = Player(x, y)
 
     while True:
         for event in pygame.event.get():
@@ -30,8 +34,11 @@ def main():
         elapsed = clock.tick(60)
         dt = elapsed / 1000
 
-        player.update(dt)
-        player.draw(screen)
+        for obj in updatable:
+            obj.update(dt)
+
+        for obj in drawable:
+            obj.draw(screen)
 
         display.flip()
 
