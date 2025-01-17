@@ -1,3 +1,4 @@
+import sys
 import pygame
 from pygame import display
 
@@ -29,7 +30,7 @@ def main():
     AsteroidField.containers = (updatable,)
 
     _afield = AsteroidField()
-    _player = Player(x, y)
+    player = Player(x, y)
 
     while True:
         for event in pygame.event.get():
@@ -44,8 +45,13 @@ def main():
         for obj in updatable:
             obj.update(dt)
 
-        for obj in drawable:
-            obj.draw(screen)
+        for shape in drawable:
+            shape.draw(screen)
+
+        for a in asteroids:
+            if a.collides_with(player):
+                print("Game over!")
+                sys.exit(1)
 
         display.flip()
 
