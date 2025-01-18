@@ -58,7 +58,7 @@ def main():
 
             for s in shots:
                 if s.collides_with(a):
-                    a.kill()
+                    a.split()
                     s.kill()
 
         display.flip()
